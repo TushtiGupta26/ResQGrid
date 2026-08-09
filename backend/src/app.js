@@ -22,9 +22,9 @@ app.set("trust proxy", 1);
 app.use(
   cors({
     origin: [
-      "https://res-q-grid.http://https://resqgrid-1y9o.onrender.com.app",
       "http://localhost:3000",
       "http://127.0.0.1:5500",
+      "https://res-q-grid-beta.vercel.app",
     ],
     credentials: true,
   })
