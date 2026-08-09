@@ -421,66 +421,72 @@
     </div>
 
     <script>
-          function previewImage(event) {
-            const file = event.target.files[0];
+function previewImage(event) {
+  const file = event.target.files[0];
 
-            if (!file) return;
+  if (!file) return;
 
-            const reader = new FileReader();
+  const reader = new FileReader();
 
-            reader.onload = function (e) {
-              const preview = document.getElementById("photoPreview");
-              const prompt = document.getElementById("upload-prompt");
+  reader.onload = function (e) {
+    const preview = document.getElementById("photoPreview");
+    const prompt = document.getElementById("upload-prompt");
 
-              preview.src = e.target.result;
-              preview.style.display = "block";
-              prompt.style.display = "none";
-            };
+    preview.src = e.target.result;
+    preview.style.display = "block";
+    prompt.style.display = "none";
+  };
 
-            reader.readAsDataURL(file);
-          }
-          document
-            .getElementById("missingCaseForm")
-            .addEventLhttps://resqgrid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comsqgrid-1y9o.onrender.comasync (e) => {
-              e.preventDefault();
+  reader.readAsDataURL(file);
+}
 
-              const form = e.target;
-              const formData = new FormData(form);
 
-              try {
-                const res = await fetch(
-                  "http://https://resqgrid-1y9o.onrender.com/guardian/application",
-                  {
-                    method: "POST",
-                    body: formData,
-                    credentials: "include",
-                  },
-                );
-                const contentType = res.headers.get("content-type");
+// Submit Missing Person Form
+document
+  .getElementById("missingCaseForm")
+  .addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-                let data;
+    const form = e.target;
+    const formData = new FormData(form);
 
-                if (contentType && contentType.includes("application/json")) {
-                  data = await res.json();
-                } else {
-                  const text = await res.text();
-                  console.log(text);
-                  throw new Error("Server returned HTML instead of JSON.");
-                }
+    try {
+      const res = await fetch(
+        "https://resqgrid-1y9o.onrender.com/guardian/application",
+        {
+          method: "POST",
+          body: formData,
+          credentials: "include",
+        }
+      );
 
-                if (!res.ok) {
-                  throw new Error(data.message || "Submission failed");
-                }
+      const contentType = res.headers.get("content-type");
 
-                alert("Case submitted successfully");
+      let data;
 
-                window.location.href =
-                  window.location.href = `https://res-q-grid.htthttphttps://resqgrid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comy9o.onrender.com5000.app/guardian.html?id=${data.id}`;
-              } catch (err) {
-                console.error(err);
-                alert(err.message);
-              }
-            });
+      if (contentType && contentType.includes("application/json")) {
+        data = await res.json();
+      } else {
+        const text = await res.text();
+        console.log("Server response:", text);
+
+        throw new Error("Server returned HTML instead of JSON.");
+      }
+
+      if (!res.ok) {
+        throw new Error(data.message || "Submission failed");
+      }
+
+      alert("Case submitted successfully");
+
+      window.location.href =
+        `https://resqgrid-1y9o.onrender.com/guardian.html?id=${data.id}`;
+
+    } catch (err) {
+      console.error("Submission error:", err);
+      alert(err.message);
+    }
+  });
 
           const pageContent = {
             "missing-person": {

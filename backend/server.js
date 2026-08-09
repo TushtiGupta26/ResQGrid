@@ -20,7 +20,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://resqgrid-1y9o.onrender.com.app",
+    origin: "https://resqgrid-1y9o.onhttp://localhost:5000.com.app",
     methods: ["GET", "POST", "PATCH"],
     credentials: true,
   },

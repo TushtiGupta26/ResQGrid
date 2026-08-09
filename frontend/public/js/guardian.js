@@ -3,7 +3,7 @@
 // PART 1
 // =====================================================
 
-const API = "http://https://resqgrid-1y9o.onrender.com";
+const API = "https://resqgrid-1y9o.onrender.com";
 
 // =====================================================
 // DOM

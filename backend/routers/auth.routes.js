@@ -52,7 +52,7 @@ router.post("/register", async (req, res) => {
       }
 
       res.redirect(
-        `https://resqgrid-1y9o.onrender.com.app/${newUser.Role.toLowerCase()}.html?id=${newUser._id}`,
+        `https://resqgrid-1y9o.onrender.com/${newUser.Role.toLowerCase()}.html?id=${newUser._id}`,
       );
     });
   } catch (error) {
@@ -110,7 +110,7 @@ router.post("/login", async (req, res) => {
         return res.status(500).send("Session error");
       }
 
-      let redirectUrl = `https://resqgrid-1y9o.onrender.com.app/${existingUser.Role.toLowerCase()}.html?id=${existingUser._id}`;
+      let redirectUrl = `https://resqgrid-1y9o.onrender.com/${existingUser.Role.toLowerCase()}.html?id=${existingUser._id}`;
 
       if (existingUser.Role.toLowerCase() === "guardian") {
         const latestCase = await Application.findOne({
