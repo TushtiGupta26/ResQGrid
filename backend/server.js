@@ -20,7 +20,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://res-q-grid.http://localhost:5000.app",
+    origin: "https://res-q-grid.http://https://resqgrid-1y9o.onrender.com.app",
     methods: ["GET", "POST", "PATCH"],
     credentials: true,
   },

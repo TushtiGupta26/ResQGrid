@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> ResQGrid | Guardian Chat</title>
+    <title>ResQGrid | Guardian Chat</title>
 
-    <script src="http://localhost:5000/socket.io/socket.io.js"></script>
+    <script src="http://https://resqgrid-1y9o.onrender.comid-1y9o.onrender.com/socket.io/socket.io.js"></script>
 
     <style>
       * {
@@ -250,8 +250,7 @@
 
   <body>
     <div class="chat-container">
-      <div class="header-left">
-</div>
+      <div class="header-left"></div>
 
       <div id="messages" class="messages"></div>
 
@@ -265,7 +264,8 @@
     </div>
 
     <script>
-      const API = "http://localhost:5000";
+      const API =
+        "http://https://resqgrid-1y9o.onrender.comid-1y9o.onrender.com";
 
       const socket = io(API, {
         withCredentials: true,
@@ -419,18 +419,19 @@ ${new Date(msg.time).toLocaleTimeString([], {
       });
 
       socket.on("receive_message", (msg) => {
+        addMessage(msg);
 
-    addMessage(msg);
+        if (currentUser && msg.senderId === currentUser.id) return;
 
-    if (currentUser && msg.senderId === currentUser.id) return;
+        console.log("Sending notification to parent");
 
-    console.log("Sending notification to parent");
-
-    window.parent.postMessage({
-        type: "NEW_CHAT_MESSAGE"
-    }, "*");
-
-});
+        window.parent.postMessage(
+          {
+            type: "NEW_CHAT_MESSAGE",
+          },
+          "*",
+        );
+      });
 
       socket.on("online_users", (count) => {
         online.textContent = count;
@@ -456,12 +457,12 @@ ${new Date(msg.time).toLocaleTimeString([], {
         if (text === "") return;
 
         socket.emit("send_message", {
-    caseId,
-    senderId: currentUser.id, 
-    sender: currentUser.name,
-    role: currentUser.role,
-    text
-});
+          caseId,
+          senderId: currentUser.id,
+          sender: currentUser.name,
+          role: currentUser.role,
+          text,
+        });
 
         input.value = "";
 
@@ -492,10 +493,10 @@ ${new Date(msg.time).toLocaleTimeString([], {
         if (!currentUser) return;
 
         socket.emit("typing", {
-    caseId,
-    name: currentUser.name,
-    role: currentUser.role
-});
+          caseId,
+          name: currentUser.name,
+          role: currentUser.role,
+        });
       });
 
       // ----------------------------

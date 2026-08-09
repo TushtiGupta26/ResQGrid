@@ -751,9 +751,9 @@
             <div class="avatar"></div>
 
             <div>
-    <h4 id="navbarName"></h4>
-    <small id="profileRole">Volunteer</small>
-</div>
+              <h4 id="navbarName"></h4>
+              <small id="profileRole">Volunteer</small>
+            </div>
 
             <i class="fa-solid fa-chevron-down"></i>
           </div>
@@ -1022,41 +1022,42 @@
       </section>
     </div>
     <script>
-        const CoinBalance = document.querySelectorAll(".coinBalance")
-        const navbarName = document.getElementById("navbarName");
-        const welcomeName = document.getElementById("welcomeName");
-        const profileName = document.querySelectorAll("#profileName");
-const profileRole = document.getElementById("profileRole");
+      const CoinBalance = document.querySelectorAll(".coinBalance");
+      const navbarName = document.getElementById("navbarName");
+      const welcomeName = document.getElementById("welcomeName");
+      const profileName = document.querySelectorAll("#profileName");
+      const profileRole = document.getElementById("profileRole");
 
+      async function loadUser() {
+        try {
+          const res = await fetch(
+            `http://https://resqgrid-1y9o.onrender.comid-1y9o.onrender.com/auth/me`,
+            {
+              credentials: "include",
+            },
+          );
 
-async function loadUser() {
-  try {
-    const res = await fetch(`http://localhost:5000/auth/me`, {
-      credentials: "include",
-    });
+          if (!res.ok) return;
 
-    if (!res.ok) return;
+          const user = await res.json();
 
-    const user = await res.json();
+          console.log("User:", user);
 
-    console.log("User:", user);
+          profileName.textContent = user.name;
+          welcomeName.textContent = user.name;
+          navbarName.textContent = user.name;
+          CoinBalance.forEach((element) => {
+            element.textContent = user.coins;
+          });
 
-    profileName.textContent = user.name;
-    welcomeName.textContent = user.name;
-    navbarName.textContent = user.name;
-    CoinBalance.forEach((element) => {
-  element.textContent = user.coins;
-});
+          profileRole.textContent = "Volunteer";
+          console.log(CoinBalance);
+        } catch (error) {
+          console.error("User Error:", error);
+        }
+      }
 
-    profileRole.textContent = "Volunteer";
-    console.log(CoinBalance)
-  } catch (error) {
-    console.error("User Error:", error);
-  }
-}
-
-loadUser();
-
+      loadUser();
     </script>
   </body>
 </html>

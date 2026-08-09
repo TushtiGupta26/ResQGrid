@@ -1,4 +1,4 @@
-const API = "http://localhost:5000";
+const API = "http://https://resqgrid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.com";
 
 const params = new URLSearchParams(window.location.search);
 const caseId = params.get("id");

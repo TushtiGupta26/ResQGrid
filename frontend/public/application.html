@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -25,40 +25,48 @@
       }
 
       body {
-    background: var(--bg-main);
-    color: var(--text-main);
+        background: var(--bg-main);
+        color: var(--text-main);
 
-    min-height: 100vh;
+        min-height: 100vh;
 
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
 
-    padding: 40px 20px;
+        padding: 40px 20px;
 
-    overflow-y: auto;
+        overflow-y: auto;
 
-    background-image:
-      radial-gradient(circle at 10% 20%, rgba(99,102,241,.15) 0%, transparent 40%),
-      radial-gradient(circle at 90% 80%, rgba(255,107,0,.1) 0%, transparent 40%);
-}
+        background-image:
+          radial-gradient(
+            circle at 10% 20%,
+            rgba(99, 102, 241, 0.15) 0%,
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 90% 80%,
+            rgba(255, 107, 0, 0.1) 0%,
+            transparent 40%
+          );
+      }
 
-      .container{
-    width:100%;
-    max-width:650px;
+      .container {
+        width: 100%;
+        max-width: 650px;
 
-    margin:40px 0;
+        margin: 40px 0;
 
-    background:var(--bg-card);
+        background: var(--bg-card);
 
-    border:1px solid var(--border-color);
+        border: 1px solid var(--border-color);
 
-    border-radius:16px;
+        border-radius: 16px;
 
-    padding:40px;
+        padding: 40px;
 
-    position:relative;
-}
+        position: relative;
+      }
 
       .container::before {
         content: "";
@@ -413,391 +421,390 @@
     </div>
 
     <script>
-      function previewImage(event) {
-        const file = event.target.files[0];
+          function previewImage(event) {
+            const file = event.target.files[0];
 
-        if (!file) return;
+            if (!file) return;
 
-        const reader = new FileReader();
+            const reader = new FileReader();
 
-        reader.onload = function (e) {
-          const preview = document.getElementById("photoPreview");
-          const prompt = document.getElementById("upload-prompt");
+            reader.onload = function (e) {
+              const preview = document.getElementById("photoPreview");
+              const prompt = document.getElementById("upload-prompt");
 
-          preview.src = e.target.result;
-          preview.style.display = "block";
-          prompt.style.display = "none";
-        };
+              preview.src = e.target.result;
+              preview.style.display = "block";
+              prompt.style.display = "none";
+            };
 
-        reader.readAsDataURL(file);
-      }
-      document
-        .getElementById("missingCaseForm")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
-
-          const form = e.target;
-          const formData = new FormData(form);
-
-          try {
-            const res = await fetch(
-              "http://localhost:5000/guardian/application",
-              {
-                method: "POST",
-                body: formData,
-                credentials: "include",
-              },
-            );
-            const contentType = res.headers.get("content-type");
-
-            let data;
-
-            if (contentType && contentType.includes("application/json")) {
-              data = await res.json();
-            } else {
-              const text = await res.text();
-              console.log(text);
-              throw new Error("Server returned HTML instead of JSON.");
-            }
-
-            if (!res.ok) {
-              throw new Error(data.message || "Submission failed");
-            }
-
-            alert("Case submitted successfully");
-
-            window.location.href =
-              window.location.href =
-`https://res-q-grid.http://localhost:5000.app/guardian.html?id=${data.id}`;
-          } catch (err) {
-            console.error(err);
-            alert(err.message);
+            reader.readAsDataURL(file);
           }
-        });
+          document
+            .getElementById("missingCaseForm")
+            .addEventLhttps://resqgrid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comsqgrid-1y9o.onrender.comasync (e) => {
+              e.preventDefault();
 
-      const pageContent = {
-        "missing-person": {
-          title: "Create Missing Person Case",
-          subtitle:
-            "Fill in the details below to submit a missing person report.",
-        },
+              const form = e.target;
+              const formData = new FormData(form);
 
-        "blood-report": {
-          title: "Blood & Medicine Emergency",
-          subtitle:
-            "Provide the required information so nearby donors and volunteers can respond quickly.",
-        },
+              try {
+                const res = await fetch(
+                  "http://https://resqgrid-1y9o.onrender.com/guardian/application",
+                  {
+                    method: "POST",
+                    body: formData,
+                    credentials: "include",
+                  },
+                );
+                const contentType = res.headers.get("content-type");
 
-        "elderly-assistance": {
-          title: "Request Elderly Assistance",
-          subtitle:
-            "Share the assistance required for the elderly person so nearby volunteers can help.",
-        },
+                let data;
 
-        "community-sos": {
-          title: "Community SOS Request",
-          subtitle:
-            "Tell us what happened so trusted community members can assist you immediately.",
-        },
+                if (contentType && contentType.includes("application/json")) {
+                  data = await res.json();
+                } else {
+                  const text = await res.text();
+                  console.log(text);
+                  throw new Error("Server returned HTML instead of JSON.");
+                }
 
-        "civic-hazard": {
-          title: "Report Civic Hazard",
-          subtitle:
-            "Report unsafe public infrastructure to alert nearby citizens and authorities.",
-        },
+                if (!res.ok) {
+                  throw new Error(data.message || "Submission failed");
+                }
 
-        "women-safety": {
-          title: "Women Safety Assistance",
-          subtitle:
-            "Share your situation so verified volunteers can provide safe and timely assistance.",
-        },
-      };
+                alert("Case submitted successfully");
 
-      const params = new URLSearchParams(window.location.search);
-      const caseType = params.get("case");
+                window.location.href =
+                  window.location.href = `https://res-q-grid.htthttphttps://resqgrid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comid-1y9o.onrender.comy9o.onrender.com5000.app/guardian.html?id=${data.id}`;
+              } catch (err) {
+                console.error(err);
+                alert(err.message);
+              }
+            });
 
-      console.log("Case Type:", caseType);
-      document.getElementById("caseType").value = caseType;
+          const pageContent = {
+            "missing-person": {
+              title: "Create Missing Person Case",
+              subtitle:
+                "Fill in the details below to submit a missing person report.",
+            },
 
-      if (pageContent[caseType]) {
-        document.querySelector(".header h1").textContent =
-          pageContent[caseType].title;
+            "blood-report": {
+              title: "Blood & Medicine Emergency",
+              subtitle:
+                "Provide the required information so nearby donors and volunteers can respond quickly.",
+            },
 
-        document.querySelector(".header p").textContent =
-          pageContent[caseType].subtitle;
-      }
+            "elderly-assistance": {
+              title: "Request Elderly Assistance",
+              subtitle:
+                "Share the assistance required for the elderly person so nearby volunteers can help.",
+            },
 
-      const dynamicFields = document.querySelector(".dynamic-fields");
+            "community-sos": {
+              title: "Community SOS Request",
+              subtitle:
+                "Tell us what happened so trusted community members can assist you immediately.",
+            },
 
-      const forms = {
-        "missing-person": `
-    <div class="form-group">
-      <label>Eye Color</label>
-      <input type="text" name="EyeColor" placeholder="Brown">
-    </div>
+            "civic-hazard": {
+              title: "Report Civic Hazard",
+              subtitle:
+                "Report unsafe public infrastructure to alert nearby citizens and authorities.",
+            },
 
-    <div class="form-row">
-      <div class="form-group">
-        <label>Hair Color</label>
-        <input type="text" name="HairColor">
-      </div>
+            "women-safety": {
+              title: "Women Safety Assistance",
+              subtitle:
+                "Share your situation so verified volunteers can provide safe and timely assistance.",
+            },
+          };
 
-      <div class="form-group">
-        <label>Weight</label>
-        <input type="number" name="Weight">
-      </div>
-    </div>
+          const params = new URLSearchParams(window.location.search);
+          const caseType = params.get("case");
 
-    <div class="form-group">
-      <label>Nationality</label>
-      <input type="text" name="Nationality">
-    </div>
+          console.log("Case Type:", caseType);
+          document.getElementById("caseType").value = caseType;
 
-    <div class="form-group">
-      <label>Languages Spoken</label>
-      <input type="text" name="Languages">
-    </div>
+          if (pageContent[caseType]) {
+            document.querySelector(".header h1").textContent =
+              pageContent[caseType].title;
 
-    <div class="form-group">
-      <label>Distinguishing Marks</label>
-      <textarea name="Marks"></textarea>
-    </div>
+            document.querySelector(".header p").textContent =
+              pageContent[caseType].subtitle;
+          }
 
-    <div class="form-group">
-      <label>Reward Offered (Optional)</label>
-      <input type="text" name="Reward">
-    </div>
-  `,
+          const dynamicFields = document.querySelector(".dynamic-fields");
 
-        "blood-report": `
-    <div class="form-group">
-      <label>Emergency Type</label>
+          const forms = {
+            "missing-person": `
+        <div class="form-group">
+          <label>Eye Color</label>
+          <input type="text" name="EyeColor" placeholder="Brown">
+        </div>
 
-      <select id="emergencyType" name="EmergencyType">
-        <option value="blood">Blood Required</option>
-        <option value="medicine">Medicine Required</option>
-      </select>
-    </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Hair Color</label>
+            <input type="text" name="HairColor">
+          </div>
 
-    <div id="bloodFields">
-
-      <div class="form-group">
-        <label>Patient Name</label>
-        <input type="text" name="PatientName">
-      </div>
-
-      <div class="form-row">
+          <div class="form-group">
+            <label>Weight</label>
+            <input type="number" name="Weight">
+          </div>
+        </div>
 
         <div class="form-group">
-          <label>Blood Group</label>
-          <select name="BloodGroup">
-            <option>A+</option>
-            <option>A-</option>
-            <option>B+</option>
-            <option>B-</option>
-            <option>AB+</option>
-            <option>AB-</option>
-            <option>O+</option>
-            <option>O-</option>
+          <label>Nationality</label>
+          <input type="text" name="Nationality">
+        </div>
+
+        <div class="form-group">
+          <label>Languages Spoken</label>
+          <input type="text" name="Languages">
+        </div>
+
+        <div class="form-group">
+          <label>Distinguishing Marks</label>
+          <textarea name="Marks"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Reward Offered (Optional)</label>
+          <input type="text" name="Reward">
+        </div>
+      `,
+
+            "blood-report": `
+        <div class="form-group">
+          <label>Emergency Type</label>
+
+          <select id="emergencyType" name="EmergencyType">
+            <option value="blood">Blood Required</option>
+            <option value="medicine">Medicine Required</option>
+          </select>
+        </div>
+
+        <div id="bloodFields">
+
+          <div class="form-group">
+            <label>Patient Name</label>
+            <input type="text" name="PatientName">
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group">
+              <label>Blood Group</label>
+              <select name="BloodGroup">
+                <option>A+</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B-</option>
+                <option>AB+</option>
+                <option>AB-</option>
+                <option>O+</option>
+                <option>O-</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Units Required</label>
+              <input type="number" name="Units">
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <label>Hospital Name</label>
+            <input type="text" name="Hospital">
+          </div>
+
+        </div>
+
+        <div id="medicineFields" style="display:none;">
+
+          <div class="form-group">
+            <label>Medicine Name</label>
+            <input type="text" name="MedicineName">
+          </div>
+
+          <div class="form-group">
+            <label>Prescription</label>
+            <input type="file" name="Prescription">
+          </div>
+
+        </div>
+      `,
+
+            "elderly-assistance": `
+        <div class="form-group">
+          <label>Elderly Person Name</label>
+          <input type="text" name="PersonName">
+        </div>
+
+        <div class="form-group">
+          <label>Request Type</label>
+
+          <select name="RequestType">
+            <option>Wellness Check</option>
+            <option>Medicine Pickup</option>
+            <option>Grocery Assistance</option>
+            <option>Hospital Escort</option>
+            <option>Home Assistance</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label>Units Required</label>
-          <input type="number" name="Units">
+          <label>Medical Conditions</label>
+          <textarea name="HealthNotes"></textarea>
         </div>
 
-      </div>
+        <div class="form-group">
+          <label>Emergency Contact</label>
+          <input type="text" name="EmergencyContact">
+        </div>
+      `,
 
-      <div class="form-group">
-        <label>Hospital Name</label>
-        <input type="text" name="Hospital">
-      </div>
+            "community-sos": `
+        <div class="form-group">
+          <label>SOS Category</label>
 
-    </div>
+          <select name="SOSCategory">
+            <option>Vehicle Breakdown</option>
+            <option>Phone Battery Dead</option>
+            <option>Feeling Unsafe</option>
+            <option>Lost While Travelling</option>
+            <option>Child Separated</option>
+          </select>
+        </div>
 
-    <div id="medicineFields" style="display:none;">
+        <div class="form-group">
+          <label>Destination</label>
+          <input type="text" name="Destination">
+        </div>
 
-      <div class="form-group">
-        <label>Medicine Name</label>
-        <input type="text" name="MedicineName">
-      </div>
+        <div class="form-group">
+          <label>Vehicle Number (Optional)</label>
+          <input type="text" name="VehicleNumber">
+        </div>
 
-      <div class="form-group">
-        <label>Prescription</label>
-        <input type="file" name="Prescription">
-      </div>
+        <div class="form-group">
+          <label>Emergency Contact</label>
+          <input type="text" name="EmergencyContact">
+        </div>
+      `,
 
-    </div>
-  `,
+            "civic-hazard": `
+        <div class="form-group">
+          <label>Hazard Type</label>
 
-        "elderly-assistance": `
-    <div class="form-group">
-      <label>Elderly Person Name</label>
-      <input type="text" name="PersonName">
-    </div>
+          <select name="HazardType">
+            <option>Open Manhole</option>
+            <option>Broken Streetlight</option>
+            <option>Waterlogging</option>
+            <option>Road Damage</option>
+            <option>Electrical Hazard</option>
+            <option>Fallen Tree</option>
+            <option>Garbage Overflow</option>
+          </select>
+        </div>
 
-    <div class="form-group">
-      <label>Request Type</label>
+        <div class="form-group">
+          <label>Severity</label>
 
-      <select name="RequestType">
-        <option>Wellness Check</option>
-        <option>Medicine Pickup</option>
-        <option>Grocery Assistance</option>
-        <option>Hospital Escort</option>
-        <option>Home Assistance</option>
-      </select>
-    </div>
+          <select name="Severity">
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+            <option>Critical</option>
+          </select>
+        </div>
 
-    <div class="form-group">
-      <label>Medical Conditions</label>
-      <textarea name="HealthNotes"></textarea>
-    </div>
+        <div class="form-group">
+          <label>Nearest Landmark</label>
+          <input type="text" name="Landmark">
+        </div>
 
-    <div class="form-group">
-      <label>Emergency Contact</label>
-      <input type="text" name="EmergencyContact">
-    </div>
-  `,
+        <div class="form-group">
+          <label>Has anyone been injured?</label>
 
-        "community-sos": `
-    <div class="form-group">
-      <label>SOS Category</label>
+          <select name="Injury">
+            <option>No</option>
+            <option>Yes</option>
+          </select>
+        </div>
+      `,
 
-      <select name="SOSCategory">
-        <option>Vehicle Breakdown</option>
-        <option>Phone Battery Dead</option>
-        <option>Feeling Unsafe</option>
-        <option>Lost While Travelling</option>
-        <option>Child Separated</option>
-      </select>
-    </div>
+            "women-safety": `
+        <div class="form-group">
+          <label>Request Type</label>
 
-    <div class="form-group">
-      <label>Destination</label>
-      <input type="text" name="Destination">
-    </div>
+          <select name="RequestType">
+            <option>Safe Walk</option>
+            <option>Escort</option>
+            <option>Feeling Unsafe</option>
+            <option>Suspicious Activity</option>
+            <option>Emergency Help</option>
+          </select>
+        </div>
 
-    <div class="form-group">
-      <label>Vehicle Number (Optional)</label>
-      <input type="text" name="VehicleNumber">
-    </div>
+        <div class="form-group">
+          <label>Destination</label>
+          <input type="text" name="Destination">
+        </div>
 
-    <div class="form-group">
-      <label>Emergency Contact</label>
-      <input type="text" name="EmergencyContact">
-    </div>
-  `,
+        <div class="form-group">
+          <label>Emergency Contact</label>
+          <input type="text" name="EmergencyContact">
+        </div>
 
-        "civic-hazard": `
-    <div class="form-group">
-      <label>Hazard Type</label>
+        <div class="form-group">
+          <label>Share Live Location</label>
 
-      <select name="HazardType">
-        <option>Open Manhole</option>
-        <option>Broken Streetlight</option>
-        <option>Waterlogging</option>
-        <option>Road Damage</option>
-        <option>Electrical Hazard</option>
-        <option>Fallen Tree</option>
-        <option>Garbage Overflow</option>
-      </select>
-    </div>
+          <select name="LiveLocation">
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+      `,
+          };
 
-    <div class="form-group">
-      <label>Severity</label>
+          function showDynamicFields(type) {
+            if (!dynamicFields) {
+              console.error("'.dynamic-feilds' section not found.");
+              return;
+            }
 
-      <select name="Severity">
-        <option>Low</option>
-        <option>Medium</option>
-        <option>High</option>
-        <option>Critical</option>
-      </select>
-    </div>
+            if (!forms[type]) {
+              console.warn("No form found for:", type);
+              dynamicFields.innerHTML = "";
+              return;
+            }
 
-    <div class="form-group">
-      <label>Nearest Landmark</label>
-      <input type="text" name="Landmark">
-    </div>
+            dynamicFields.innerHTML = forms[type];
 
-    <div class="form-group">
-      <label>Has anyone been injured?</label>
+            if (type === "blood-report") {
+              const emergencyType = document.getElementById("emergencyType");
+              const bloodFields = document.getElementById("bloodFields");
+              const medicineFields = document.getElementById("medicineFields");
 
-      <select name="Injury">
-        <option>No</option>
-        <option>Yes</option>
-      </select>
-    </div>
-  `,
-
-        "women-safety": `
-    <div class="form-group">
-      <label>Request Type</label>
-
-      <select name="RequestType">
-        <option>Safe Walk</option>
-        <option>Escort</option>
-        <option>Feeling Unsafe</option>
-        <option>Suspicious Activity</option>
-        <option>Emergency Help</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Destination</label>
-      <input type="text" name="Destination">
-    </div>
-
-    <div class="form-group">
-      <label>Emergency Contact</label>
-      <input type="text" name="EmergencyContact">
-    </div>
-
-    <div class="form-group">
-      <label>Share Live Location</label>
-
-      <select name="LiveLocation">
-        <option>Yes</option>
-        <option>No</option>
-      </select>
-    </div>
-  `,
-      };
-
-      function showDynamicFields(type) {
-        if (!dynamicFields) {
-          console.error("'.dynamic-feilds' section not found.");
-          return;
-        }
-
-        if (!forms[type]) {
-          console.warn("No form found for:", type);
-          dynamicFields.innerHTML = "";
-          return;
-        }
-
-        dynamicFields.innerHTML = forms[type];
-
-        if (type === "blood-report") {
-          const emergencyType = document.getElementById("emergencyType");
-          const bloodFields = document.getElementById("bloodFields");
-          const medicineFields = document.getElementById("medicineFields");
-
-          if (emergencyType) {
-            emergencyType.addEventListener("change", () => {
-              if (emergencyType.value === "blood") {
-                bloodFields.style.display = "block";
-                medicineFields.style.display = "none";
-              } else {
-                bloodFields.style.display = "none";
-                medicineFields.style.display = "block";
+              if (emergencyType) {
+                emergencyType.addEventListener("change", () => {
+                  if (emergencyType.value === "blood") {
+                    bloodFields.style.display = "block";
+                    medicineFields.style.display = "none";
+                  } else {
+                    bloodFields.style.display = "none";
+                    medicineFields.style.display = "block";
+                  }
+                });
               }
-            });
+            }
           }
-        }
-      }
 
-      showDynamicFields(caseType);
+          showDynamicFields(caseType);
     </script>
   </body>
 </html>
