@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ResQGrid - Report a Missing Person</title>
+    <style>
+      :root {
+        --bg-main: #0b0e17;
+        --bg-card: #131926;
+        --bg-input: #1c2436;
+        --text-main: #ffffff;
+        --text-muted: #8f9cae;
+        --accent-purple: #6366f1;
+        --accent-orange: #ff6b00;
+        --accent-gradient: linear-gradient(135deg, #6366f1 0%, #ff6b00 100%);
+        --border-color: #263147;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+
+      body {
+    background: var(--bg-main);
+    color: var(--text-main);
+
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 40px 20px;
+
+    overflow-y: auto;
+
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(99,102,241,.15) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(255,107,0,.1) 0%, transparent 40%);
+}
+
+      .container{
+    width:100%;
+    max-width:650px;
+
+    margin:40px 0;
+
+    background:var(--bg-card);
+
+    border:1px solid var(--border-color);
+
+    border-radius:16px;
+
+    padding:40px;
+
+    position:relative;
+}
+
+      .container::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 4px;
+        background: var(--accent-gradient);
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 8px;
+      }
+
+      .logo span {
+        background: var(--accent-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .header h1 {
+        font-size: 22px;
+        margin-bottom: 6px;
+      }
+
+      .header p {
+        color: var(--text-muted);
+        font-size: 14px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        background: var(--bg-input);
+        color: var(--text-main);
+        font-size: 15px;
+        outline: none;
+        transition: 0.3s;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: var(--accent-purple);
+        box-shadow: 0 0 8px rgba(99, 102, 241, 0.25);
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      .photo-upload-zone {
+        padding: 30px;
+        border: 2px dashed var(--border-color);
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        background: rgba(28, 36, 54, 0.4);
+        transition: 0.3s;
+      }
+
+      .photo-upload-zone:hover {
+        border-color: var(--accent-orange);
+      }
+
+      .photo-upload-zone img {
+        display: none;
+        max-width: 100%;
+        max-height: 180px;
+        margin: auto;
+        border-radius: 6px;
+      }
+
+      .upload-icon {
+        font-size: 32px;
+        margin-bottom: 10px;
+        color: var(--text-muted);
+      }
+
+      .btn-container {
+        margin-top: 30px;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 600;
+        transition: 0.3s;
+      }
+
+      .btn-primary {
+        background: var(--accent-gradient);
+        color: #fff;
+      }
+
+      .btn-primary:hover {
+        opacity: 0.9;
+      }
+
+      /* ---------- Responsive ---------- */
+      @media (max-width: 700px) {
+        .container {
+          padding: 28px 22px;
+          border-radius: 12px;
+        }
+      }
+
+      @media (max-width: 560px) {
+        body {
+          padding: 12px;
+          align-items: flex-start;
+        }
+
+        .container {
+          padding: 22px 16px;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+          gap: 14px;
+        }
+
+        .header h1 {
+          font-size: 19px;
+        }
+
+        .header p {
+          font-size: 13px;
+        }
+
+        .logo {
+          font-size: 21px;
+        }
+
+        input,
+        select,
+        textarea {
+          padding: 11px 14px;
+          font-size: 14px;
+        }
+
+        .photo-upload-zone {
+          padding: 20px;
+        }
+
+        .btn {
+          padding: 13px;
+          font-size: 14px;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .container {
+          padding: 18px 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div class="logo">ResQ<span>Grid</span></div>
+        <h1>Create Missing Person Case</h1>
+        <p>Fill in the details below to submit a missing person report.</p>
+      </div>
+
+      <form id="missingCaseForm" enctype="multipart/form-data">
+        <!-- Basic Information -->
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input
+            type="text"
+            id="fullName"
+            name="Name"
+            placeholder="Enter full name"
+            required
+          />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="age">Age</label>
+            <input
+              type="number"
+              id="age"
+              name="Age"
+              min="0"
+              max="130"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" name="Gender" required>
+              <option value="">Select Gender</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="height">Height</label>
+            <input
+              type="text"
+              id="height"
+              name="Height"
+              placeholder="e.g. 5'8&quot;"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="guardianContact">Guardian Contact</label>
+            <input
+              type="text"
+              id="guardianContact"
+              name="GuardianContact"
+              placeholder="Phone Number"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Photo -->
+        <div class="form-group">
+          <label for="photoInput">Photo</label>
+
+          <div
+            class="photo-upload-zone"
+            onclick="document.getElementById('photoInput').click()"
+          >
+            <div id="upload-prompt">
+              <div class="upload-icon">📷</div>
+              <p>Click to upload a clear photo</p>
+            </div>
+
+            <img id="photoPreview" alt="Preview" />
+
+            <input
+              type="file"
+              id="photoInput"
+              name="Photo"
+              accept="image/*"
+              style="display: none"
+              onchange="previewImage(event)"
+            />
+          </div>
+        </div>
+
+        <!-- Clothing -->
+        <div class="form-group">
+          <label for="clothing">Clothing Description</label>
+          <textarea
+            id="clothing"
+            name="Clothing"
+            rows="4"
+            placeholder="Describe the clothing..."
+            required
+          ></textarea>
+        </div>
+
+        <!-- Last Seen -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="lastSeen">Last Seen Location</label>
+            <input type="text" id="lastSeen" name="LastSeen" required />
+          </div>
+
+          <div class="form-group">
+            <label for="dateTime">Date & Time</label>
+            <input
+              type="datetime-local"
+              id="dateTime"
+              name="dateTime"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Medical -->
+        <div class="form-group">
+          <label for="medicalConditions">Medical Conditions</label>
+          <input
+            type="text"
+            id="medicalConditions"
+            name="MedicalConditions"
+            placeholder="Leave blank if none"
+          />
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label for="description">Additional Details</label>
+          <textarea
+            id="description"
+            name="Description"
+            rows="5"
+            placeholder="Any distinguishing marks, tattoos, behaviour, etc."
+            required
+          ></textarea>
+        </div>
+
+        <input type="hidden" id="caseType" name="caseType" />
+
+        <!-- Dynamic Fields Will Be Inserted Here -->
+        <div class="dynamic-fields"></div>
+
+        <div class="btn-container">
+          <button type="submit" class="btn btn-primary">Submit Case</button>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      function previewImage(event) {
+        const file = event.target.files[0];
+
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          const preview = document.getElementById("photoPreview");
+          const prompt = document.getElementById("upload-prompt");
+
+          preview.src = e.target.result;
+          preview.style.display = "block";
+          prompt.style.display = "none";
+        };
+
+        reader.readAsDataURL(file);
+      }
+      document
+        .getElementById("missingCaseForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const form = e.target;
+          const formData = new FormData(form);
+
+          try {
+            const res = await fetch(
+              "https://resqgrid-b1zt.onrender.com/guardian/application",
+              {
+                method: "POST",
+                body: formData,
+                credentials: "include",
+              },
+            );
+            const contentType = res.headers.get("content-type");
+
+            let data;
+
+            if (contentType && contentType.includes("application/json")) {
+              data = await res.json();
+            } else {
+              const text = await res.text();
+              console.log(text);
+              throw new Error("Server returned HTML instead of JSON.");
+            }
+
+            if (!res.ok) {
+              throw new Error(data.message || "Submission failed");
+            }
+
+            alert("Case submitted successfully");
+
+            window.location.href =
+              window.location.href =
+`https://res-q-grid.vercel.app/guardian.html?id=${data.id}`;
+          } catch (err) {
+            console.error(err);
+            alert(err.message);
+          }
+        });
+
+      const pageContent = {
+        "missing-person": {
+          title: "Create Missing Person Case",
+          subtitle:
+            "Fill in the details below to submit a missing person report.",
+        },
+
+        "blood-report": {
+          title: "Blood & Medicine Emergency",
+          subtitle:
+            "Provide the required information so nearby donors and volunteers can respond quickly.",
+        },
+
+        "elderly-assistance": {
+          title: "Request Elderly Assistance",
+          subtitle:
+            "Share the assistance required for the elderly person so nearby volunteers can help.",
+        },
+
+        "community-sos": {
+          title: "Community SOS Request",
+          subtitle:
+            "Tell us what happened so trusted community members can assist you immediately.",
+        },
+
+        "civic-hazard": {
+          title: "Report Civic Hazard",
+          subtitle:
+            "Report unsafe public infrastructure to alert nearby citizens and authorities.",
+        },
+
+        "women-safety": {
+          title: "Women Safety Assistance",
+          subtitle:
+            "Share your situation so verified volunteers can provide safe and timely assistance.",
+        },
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      const caseType = params.get("case");
+
+      console.log("Case Type:", caseType);
+      document.getElementById("caseType").value = caseType;
+
+      if (pageContent[caseType]) {
+        document.querySelector(".header h1").textContent =
+          pageContent[caseType].title;
+
+        document.querySelector(".header p").textContent =
+          pageContent[caseType].subtitle;
+      }
+
+      const dynamicFields = document.querySelector(".dynamic-fields");
+
+      const forms = {
+        "missing-person": `
+    <div class="form-group">
+      <label>Eye Color</label>
+      <input type="text" name="EyeColor" placeholder="Brown">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Hair Color</label>
+        <input type="text" name="HairColor">
+      </div>
+
+      <div class="form-group">
+        <label>Weight</label>
+        <input type="number" name="Weight">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Nationality</label>
+      <input type="text" name="Nationality">
+    </div>
+
+    <div class="form-group">
+      <label>Languages Spoken</label>
+      <input type="text" name="Languages">
+    </div>
+
+    <div class="form-group">
+      <label>Distinguishing Marks</label>
+      <textarea name="Marks"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Reward Offered (Optional)</label>
+      <input type="text" name="Reward">
+    </div>
+  `,
+
+        "blood-report": `
+    <div class="form-group">
+      <label>Emergency Type</label>
+
+      <select id="emergencyType" name="EmergencyType">
+        <option value="blood">Blood Required</option>
+        <option value="medicine">Medicine Required</option>
+      </select>
+    </div>
+
+    <div id="bloodFields">
+
+      <div class="form-group">
+        <label>Patient Name</label>
+        <input type="text" name="PatientName">
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label>Blood Group</label>
+          <select name="BloodGroup">
+            <option>A+</option>
+            <option>A-</option>
+            <option>B+</option>
+            <option>B-</option>
+            <option>AB+</option>
+            <option>AB-</option>
+            <option>O+</option>
+            <option>O-</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Units Required</label>
+          <input type="number" name="Units">
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label>Hospital Name</label>
+        <input type="text" name="Hospital">
+      </div>
+
+    </div>
+
+    <div id="medicineFields" style="display:none;">
+
+      <div class="form-group">
+        <label>Medicine Name</label>
+        <input type="text" name="MedicineName">
+      </div>
+
+      <div class="form-group">
+        <label>Prescription</label>
+        <input type="file" name="Prescription">
+      </div>
+
+    </div>
+  `,
+
+        "elderly-assistance": `
+    <div class="form-group">
+      <label>Elderly Person Name</label>
+      <input type="text" name="PersonName">
+    </div>
+
+    <div class="form-group">
+      <label>Request Type</label>
+
+      <select name="RequestType">
+        <option>Wellness Check</option>
+        <option>Medicine Pickup</option>
+        <option>Grocery Assistance</option>
+        <option>Hospital Escort</option>
+        <option>Home Assistance</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Medical Conditions</label>
+      <textarea name="HealthNotes"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Emergency Contact</label>
+      <input type="text" name="EmergencyContact">
+    </div>
+  `,
+
+        "community-sos": `
+    <div class="form-group">
+      <label>SOS Category</label>
+
+      <select name="SOSCategory">
+        <option>Vehicle Breakdown</option>
+        <option>Phone Battery Dead</option>
+        <option>Feeling Unsafe</option>
+        <option>Lost While Travelling</option>
+        <option>Child Separated</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Destination</label>
+      <input type="text" name="Destination">
+    </div>
+
+    <div class="form-group">
+      <label>Vehicle Number (Optional)</label>
+      <input type="text" name="VehicleNumber">
+    </div>
+
+    <div class="form-group">
+      <label>Emergency Contact</label>
+      <input type="text" name="EmergencyContact">
+    </div>
+  `,
+
+        "civic-hazard": `
+    <div class="form-group">
+      <label>Hazard Type</label>
+
+      <select name="HazardType">
+        <option>Open Manhole</option>
+        <option>Broken Streetlight</option>
+        <option>Waterlogging</option>
+        <option>Road Damage</option>
+        <option>Electrical Hazard</option>
+        <option>Fallen Tree</option>
+        <option>Garbage Overflow</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Severity</label>
+
+      <select name="Severity">
+        <option>Low</option>
+        <option>Medium</option>
+        <option>High</option>
+        <option>Critical</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Nearest Landmark</label>
+      <input type="text" name="Landmark">
+    </div>
+
+    <div class="form-group">
+      <label>Has anyone been injured?</label>
+
+      <select name="Injury">
+        <option>No</option>
+        <option>Yes</option>
+      </select>
+    </div>
+  `,
+
+        "women-safety": `
+    <div class="form-group">
+      <label>Request Type</label>
+
+      <select name="RequestType">
+        <option>Safe Walk</option>
+        <option>Escort</option>
+        <option>Feeling Unsafe</option>
+        <option>Suspicious Activity</option>
+        <option>Emergency Help</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Destination</label>
+      <input type="text" name="Destination">
+    </div>
+
+    <div class="form-group">
+      <label>Emergency Contact</label>
+      <input type="text" name="EmergencyContact">
+    </div>
+
+    <div class="form-group">
+      <label>Share Live Location</label>
+
+      <select name="LiveLocation">
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+    </div>
+  `,
+      };
+
+      function showDynamicFields(type) {
+        if (!dynamicFields) {
+          console.error("'.dynamic-feilds' section not found.");
+          return;
+        }
+
+        if (!forms[type]) {
+          console.warn("No form found for:", type);
+          dynamicFields.innerHTML = "";
+          return;
+        }
+
+        dynamicFields.innerHTML = forms[type];
+
+        if (type === "blood-report") {
+          const emergencyType = document.getElementById("emergencyType");
+          const bloodFields = document.getElementById("bloodFields");
+          const medicineFields = document.getElementById("medicineFields");
+
+          if (emergencyType) {
+            emergencyType.addEventListener("change", () => {
+              if (emergencyType.value === "blood") {
+                bloodFields.style.display = "block";
+                medicineFields.style.display = "none";
+              } else {
+                bloodFields.style.display = "none";
+                medicineFields.style.display = "block";
+              }
+            });
+          }
+        }
+      }
+
+      showDynamicFields(caseType);
+    </script>
+  </body>
+</html>
