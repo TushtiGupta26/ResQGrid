@@ -1,0 +1,455 @@
+:root {
+  /* Dynamic Palette */
+  --bg-gradient-1: #090d16;
+  --bg-gradient-2: #111827;
+  --bg-gradient-3: #1e1b4b;
+
+  /* Glassmorphism Surface Specs */
+  --glass-surface: rgba(30, 41, 59, 0.45);
+  --glass-surface-hover: rgba(51, 65, 85, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-border-hover: rgba(56, 189, 248, 0.5);
+
+  /* Typography Colors */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+
+  /* Vibrant Accents & Glows */
+  --accent-primary: #38bdf8;
+  --accent-primary-glow: rgba(56, 189, 248, 0.35);
+  --accent-success: #22c55e;
+  --accent-success-glow: rgba(34, 197, 94, 0.35);
+  --accent-warning: #f59e0b;
+  --accent-danger: #ef4444;
+  --accent-danger-glow: rgba(239, 68, 68, 0.35);
+
+  /* FX & Radii */
+  --blur-strength: blur(18px);
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.45), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  --shadow-glow: 0 0 20px rgba(56, 189, 248, 0.2);
+
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   Base Layout & Animated Background
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: radial-gradient(circle at 15% 15%, var(--bg-gradient-3) 0%, var(--bg-gradient-2) 45%, var(--bg-gradient-1) 100%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+  padding: 2rem 1.5rem;
+  overflow-x: hidden;
+}
+
+/* Smooth Entrance Animation for Container */
+.tracking-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* ==========================================================================
+   Header Section
+   ========================================================================== */
+
+.case-header {
+  background: var(--glass-surface);
+  backdrop-filter: var(--blur-strength);
+  -webkit-backdrop-filter: var(--blur-strength);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow: var(--shadow-glass);
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+}
+
+/* Dynamic Accent Glow Bar */
+.case-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--accent-primary), #818cf8);
+  box-shadow: 0 0 10px var(--accent-primary);
+}
+
+#casePhoto {
+  width: 76px;
+  height: 76px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  border: 2px solid rgba(56, 189, 248, 0.5);
+  box-shadow: var(--shadow-glow);
+  transition: var(--transition-smooth);
+}
+
+#casePhoto:hover {
+  transform: scale(1.08) rotate(2deg);
+  border-color: var(--accent-primary);
+}
+
+.case-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.case-title h1 {
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Radar-Style Pulsing Status Badge */
+#caseStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  box-shadow: 0 0 12px var(--accent-success-glow);
+}
+
+#caseStatus::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent-success);
+  box-shadow: 0 0 8px var(--accent-success);
+  animation: radarPulse 1.8s infinite ease-in-out;
+}
+
+#headerCaseType {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   Map Card Features
+   ========================================================================== */
+
+.tracking-card {
+  background: var(--glass-surface);
+  backdrop-filter: var(--blur-strength);
+  -webkit-backdrop-filter: var(--blur-strength);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-glass);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tracking-card h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#map {
+  width: 100%;
+  height: 400px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--glass-border);
+  z-index: 1;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  transition: var(--transition-smooth);
+}
+
+/* ==========================================================================
+   Interactive Stat Grid
+   ========================================================================== */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1.25rem;
+}
+
+.stat-card {
+  background: var(--glass-surface);
+  backdrop-filter: var(--blur-strength);
+  -webkit-backdrop-filter: var(--blur-strength);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow-glass);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover Shine & Lift Effect */
+.stat-card:hover {
+  transform: translateY(-5px);
+  background: var(--glass-surface-hover);
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--shadow-glass), 0 0 20px var(--accent-primary-glow);
+}
+
+.stat-card h3 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.stat-card p {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  text-shadow: 0 0 10px var(--accent-primary-glow);
+}
+
+/* ==========================================================================
+   Details Grid & Animated Feed
+   ========================================================================== */
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--glass-surface);
+  backdrop-filter: var(--blur-strength);
+  -webkit-backdrop-filter: var(--blur-strength);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-glass);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.card h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.25rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+}
+
+.detail:last-child {
+  border-bottom: none;
+}
+
+.detail label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.detail span {
+  font-size: 0.925rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Activity Feed Custom Scrollbar & Console Box */
+#activityFeed {
+  font-size: 0.875rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: var(--text-secondary);
+  background: rgba(10, 15, 26, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  min-height: 140px;
+  max-height: 220px;
+  overflow-y: auto;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+#activityFeed::-webkit-scrollbar {
+  width: 6px;
+}
+
+#activityFeed::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#activityFeed::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+}
+
+#activityFeed::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+
+/* ==========================================================================
+   Action Buttons
+   ========================================================================== */
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+.actions button {
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: var(--shadow-glass);
+}
+
+#chatBtn {
+  background: rgba(56, 189, 248, 0.2);
+  color: #e0f2fe;
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+#chatBtn:hover {
+  background: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 0 20px var(--accent-primary-glow);
+  transform: translateY(-2px);
+}
+
+#refreshBtn {
+  background: var(--glass-surface);
+  color: var(--text-primary);
+}
+
+#refreshBtn:hover {
+  background: var(--glass-surface-hover);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+#closeBtn {
+  background: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+  border-color: rgba(239, 68, 68, 0.35);
+}
+
+#closeBtn:hover {
+  background: rgba(239, 68, 68, 0.85);
+  color: #ffffff;
+  box-shadow: 0 0 20px var(--accent-danger-glow);
+  transform: translateY(-2px);
+}
+
+.actions button:active {
+  transform: scale(0.96);
+}
+
+/* ==========================================================================
+   Animations & Responsive Breakpoints
+   ========================================================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes radarPulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 1rem;
+  }
+
+  .case-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem 1rem;
+  }
+
+  #caseStatus {
+    margin: 0 auto;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+}

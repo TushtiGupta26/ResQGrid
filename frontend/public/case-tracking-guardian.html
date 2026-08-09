@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ResQGrid | Case Tracking</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet"
+href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css">
+
+
+    <link rel="stylesheet" href="./css/case-tracking-guardian.css" />
+  </head>
+
+  <body>
+    <div class="tracking-container">
+      <!-- HEADER -->
+
+      <div class="case-header">
+        <img id="casePhoto" src="/images/default-user.png" alt="case" />
+
+        <div class="case-title">
+          <h1 id="caseName">Loading...</h1>
+
+          <span id="caseStatus"> Active </span>
+
+          <p id="headerCaseType">Emergency Case</p>
+        </div>
+      </div>
+
+      <!-- MAP -->
+
+      <div class="tracking-card" id="mapSection">
+        <h2>Live Volunteer Location</h2>
+
+        <div id="map"></div>
+      </div>
+
+      <!-- LIVE STATS -->
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Volunteer</h3>
+
+          <p id="volunteerName">Waiting</p>
+        </div>
+
+        <div class="stat-card">
+          <h3>Distance</h3>
+
+          <p id="distance">-</p>
+        </div>
+
+        <div class="stat-card">
+          <h3>ETA</h3>
+
+          <p id="eta">-</p>
+        </div>
+
+        <div class="stat-card">
+          <h3>Case Type</h3>
+
+          <p id="caseType">-</p>
+        </div>
+      </div>
+
+      <!-- DETAILS -->
+
+      <div class="details-grid">
+        <div class="card">
+          <h2>Case Information</h2>
+
+          <div class="detail">
+            <label> Location </label>
+
+            <span id="caseLocation"> - </span>
+          </div>
+
+          <div class="detail">
+            <label> Created </label>
+
+            <span id="createdDate"> - </span>
+          </div>
+
+          <div class="detail">
+            <label> Priority </label>
+
+            <span id="priority"> - </span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Live Activity</h2>
+
+          <div id="activityFeed">Waiting for updates...</div>
+        </div>
+      </div>
+
+      <!-- ACTIONS -->
+
+      <div class="actions">
+        <button id="chatBtn">💬 Chat</button>
+
+        <button id="refreshBtn">Refresh</button>
+
+        <button id="closeBtn">Close Case</button>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script src="https://resqgrid-b1zt.onrender.com/socket.io/socket.io.js"></script>
+    
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+    <script src="./js/case-tracking-guardian.js"></script>
+  </body>
+</html>
