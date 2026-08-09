@@ -36,30 +36,31 @@ window.addEventListener("load", () => {
 const JoinBtn = document.querySelector(".join-btn");
 
 JoinBtn.addEventListener("click", () => {
-  window.location.href = "https://resqgrid-1y9o.onrender.com.html";
+  window.location.href = "https://resqgrid-1y9o.onrender.com/role-selection.html";
 });
 
 const GuardianHomeBtn = document.querySelector(".primary-btn");
 
 GuardianHomeBtn.addEventListener("click", () => {
-  window.location.href = "https://resqgrid-1y9o.onrender.com?role=Guardian";
+  window.location.href = "https://resqgrid-1y9o.onrender.com/register.html?role=Guardian";
 });
 
 const VolunteerHomeBtn = document.querySelector(".secondary-btn");
 
 VolunteerHomeBtn.addEventListener("click", () => {
-  window.location.href = "https://resqgrid-1y9o.onrender.com?role=Volunteer";
+  window.location.href = "https://resqgrid-1y9o.onrender.com/register.html?role=Volunteer";
 });
 
 const GuardianBtn = document.querySelector("#GuardianBtn");
 GuardianBtn.addEventListener("click", () => {
-  window.location.href = "https://resqgrid-1y9o.onrender.com?role=Guardian";
+  window.location.href = "https://resqgrid-1y9o.onrender.com/register.html?role=Guardian";
 });
 
 const VolunteerBtn = document.querySelectorAll("#VolunteerBtn");
 
 VolunteerBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
-    window.location.href = "https://resqgrid-1y9o.onrender.com?role=Volunteer";
+    window.location.href = "https://resqgrid-1y9o.onrender.com/register.html?role=Volunteer";
   });
 });
+
